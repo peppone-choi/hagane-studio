@@ -209,6 +209,8 @@ type countryStage struct {
 	// country_tags line of the mod names: a mod that changes a base-game
 	// country keeps the base game's tag line and replaces only its file.
 	definitions []countryFactionRow
+	// dynamic are the mod's dynamic tags (D01…), which are countries too.
+	dynamic []string
 }
 
 type countryStageRow struct {
@@ -301,6 +303,7 @@ func (s *session) stageCountries(opt CountryStageOptions) (CountryCounts, error)
 	for _, tag := range ordered {
 		d := decls[tag]
 		if d.Dynamic {
+			s.countries.dynamic = append(s.countries.dynamic, tag)
 			counts.DynamicSkipped++
 			continue
 		}
