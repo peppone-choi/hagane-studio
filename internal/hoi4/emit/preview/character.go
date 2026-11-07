@@ -250,13 +250,12 @@ func GenerateCharacterScript(
 	// An imported character whose main role is another one (a general who
 	// is also head of state) keeps its country_leader block: the import
 	// records its ideology and expiry from that block.
-	imported := pyStr(attr(char, "source")) == "imported"
 	// The import keeps every country_leader block as written in
 	// raw_extras.country_leader; an imported character is written with
 	// those, since the model holds only one leader role and its traits
 	// follow the main role.
 	verbatimLeaders := false
-	if extras := getOD(char, "raw_extras"); extras != nil && imported {
+	if imported {
 		if blocks, ok := extras.Get("country_leader"); ok && pyTruthy(blocks) {
 			verbatimLeaders = true
 		}
